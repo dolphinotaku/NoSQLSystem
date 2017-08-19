@@ -1,0 +1,39 @@
+<div class="uk-panel" style="margin: 0px; padding: 0px;">
+        	<div class="uk-panel-box">
+				<!-- list win top bar -->
+				<div class="custom-transclude"></div>
+            </div>
+            <div class="uk-panel-box">
+				<!-- button toolbar -->
+				<div aria-label="Pageview with button groups">
+					<!-- refresh button -->
+					<div class="uk-button-group">
+						<button type="button" class="uk-button uk-button-large" ng-click="ClearNRefreshData()" aria-label="Reconnect and Refresh the data">
+						  <span class="fa fa-refresh" aria-hidden="true"></span> <span class="uk-hidden-small">Refresh</span>
+						</button>
+					</div>
+					<!-- arrow button -->
+					<div class="uk-button-group">
+						<button type="button" class="uk-button uk-button-large" ng-click="GotoFirstPageRecord()" aria-label="Go to the first page">
+						  <span class="fa fa-step-backward" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="uk-button uk-button-large" ng-click="GotoPreviousPageRecord()" aria-label="Previous page">
+						  <span class="fa fa-caret-left" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="uk-button uk-button-large" ng-click="GotoNextPageRecord()" aria-label="Next page">
+						  <span class="fa fa-caret-right " aria-hidden="true"></span>
+						</button>
+						<button type="button" class="uk-button uk-button-large" ng-click="GotoLastPageRecord()" aria-label="Go to the last page">
+						  <span class="fa fa-step-forward " aria-hidden="true"></span>
+						</button>
+					</div>
+					<!-- tick / select button -->
+					<div class="uk-button-group">
+						<button type="button" class="uk-button uk-button-large" ng-click="SelectedToRecord()" aria-label="Select the pointed record">
+						  <span class="fa fa-check" aria-hidden="true"></span> <span class="uk-hidden-small">Select</span>
+						</button>
+					</div>
+				</div>
+				<div ng-bind="DisplayMessage"></div>
+			</div>
+</div>

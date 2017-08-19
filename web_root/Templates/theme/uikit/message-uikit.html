@@ -1,0 +1,5 @@
+<div class="custom-transclude">
+		  <div class="uk-alert" ng-if="msgCtrl.ngModel.length > 0">
+			<div ng-repeat="dspMsg in msgCtrl.ngModel track by $index" ng-bind="dspMsg"></div>
+		  </div>
+</div>

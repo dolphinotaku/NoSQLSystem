@@ -1,0 +1,54 @@
+        	<div class="">
+        	<div class="">
+				<!-- list win top bar -->
+				<!--
+				<div class="row">
+				 	// search box
+				 	<div class="col-sm-offset-2 col-sm-8 col-xs-12">
+				 		<form class="pageview-search">
+				 		    <div class="input-group">
+				 		      <input type="text" class="form-control" placeholder="Search for...">
+				 		      <span class="input-group-btn">
+				 		        <button class="btn btn-default" type="button">Go!</button>
+				 		      </span>
+				 		    </div>
+				 		</form>
+				 	</div>+
+				 </div>
+				 inside of the ng-transclude
+				<div ng-transclude></div>
+				-->
+				<table style="border: 1px solid black;"><tr><td>
+				<div class="custom-transclude"></div>
+				</td></tr></table>
+            </div>
+            <div class="">
+				<!-- button toolbar -->
+				<div class="" aria-label="Pageview with button groups">
+					<!-- refresh button -->
+					<div class="">
+						<button type="button" ng-click="ClearNRefreshData()" aria-label="Reconnect and Refresh the data">
+						  <span class="fa fa-refresh" aria-hidden="true"></span> <span>Refresh</span>
+						</button>
+					<!-- arrow button -->
+						<button type="button" class="" ng-click="GotoFirstPageRecord()" aria-label="Go to the first page">
+						  <span class="fa fa-step-backward" aria-hidden="true"></span> <span>First</span></span>
+						</button>
+						<button type="button" class="" ng-click="GotoPreviousPageRecord()" aria-label="Previous page">
+						  <span class="fa fa-caret-left" aria-hidden="true"></span> <span>Previous</span></span>
+						</button>
+						<button type="button" class="" ng-click="GotoNextPageRecord()" aria-label="Next page">
+						  <span class="fa fa-caret-right " aria-hidden="true"></span> <span>Next</span></span>
+						</button>
+						<button type="button" class="" ng-click="GotoLastPageRecord()" aria-label="Go to the last page">
+						  <span class="fa fa-step-forward " aria-hidden="true"></span> <span>Last</span></span>
+						</button>
+					<!-- tick / select button -->
+						<button type="button" class="" ng-click="SelectedToRecord()" aria-label="Select the pointed record">
+						  <span class="fa fa-check" aria-hidden="true"></span> <span>Select</span>
+						</button>
+					</div>
+				</div>
+				<div ng-bind="DisplayMessage"></div>
+			</div>
+			</div>

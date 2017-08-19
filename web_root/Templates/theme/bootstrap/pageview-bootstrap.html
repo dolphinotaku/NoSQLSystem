@@ -1,0 +1,56 @@
+<div class="panel panel-default" style="margin: 0px; padding: 0px;">
+        	<div class="panel-body">
+				<!-- list win top bar -->
+				<!--
+				<div class="row">
+				 	// search box
+				 	<div class="col-sm-offset-2 col-sm-8 col-xs-12">
+				 		<form class="pageview-search">
+				 		    <div class="input-group">
+				 		      <input type="text" class="form-control" placeholder="Search for...">
+				 		      <span class="input-group-btn">
+				 		        <button class="btn btn-default" type="button">Go!</button>
+				 		      </span>
+				 		    </div>
+				 		</form>
+				 	</div>+
+				 </div>
+				 inside of the ng-transclude
+				<div ng-transclude></div>
+				-->
+				<div class="custom-transclude"></div>
+            </div>
+            <div class="panel-footer">
+				<!-- button toolbar -->
+				<div class="btn-toolbar" role="toolbar" aria-label="Pageview with button groups">
+					<!-- refresh button -->
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-default" ng-click="ClearNRefreshData()" aria-label="Reconnect and Refresh the data">
+						  <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> <span class="hidden-xs">Refresh</span>
+						</button>
+					</div>
+					<!-- arrow button -->
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-default" ng-click="GotoFirstPageRecord()" aria-label="Go to the first record">
+						  <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-default" ng-click="GotoPreviousPageRecord()" aria-label="Previous record">
+						  <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-default" ng-click="GotoNextPageRecord()" aria-label="Next record">
+						  <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-default" ng-click="GotoLastPageRecord()" aria-label="Go to the last record">
+						  <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+						</button>
+					</div>
+					<!-- tick / select button -->
+					<div class="btn-group" role="group" aria-label="...">
+						<button type="button" class="btn btn-default" ng-click="SelectedToRecord()" aria-label="Select the pointed record">
+						  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <span class="hidden-xs">Select</span>
+						</button>
+					</div>
+				</div>
+				<div ng-bind="DisplayMessage"></div>
+			</div>
+</div>
