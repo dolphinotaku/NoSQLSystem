@@ -164,12 +164,9 @@ class MongoDBManager {
 
 	public function Select(){
 		// prepare select
-		$bulk = $this->GetBulkWrite();
 		$mongoFilter = array();
 		$recordArray = $this->_;
 		$dataSchema = $this->dataSchema;
-
-		$primaryKeySchema = $this->getPrimaryKeyName();
 
 		$selectOption = array('multi' => false, 'upsert' => false);
 
@@ -197,51 +194,51 @@ class MongoDBManager {
 
 	public function SelectPage($tempOffset = 1, $tempLimit = 10){
 		// prepare select
-		$bulk = $this->GetBulkWrite();
 		$mongoFilter = array();
+//		$mongoFilter['views'] = array(['$gte' => $tempLimit]);
 		$recordArray = $this->_;
 		$dataSchema = $this->dataSchema;
         
-		$primaryKeySchema = $this->getPrimaryKeyName();
-
 		$selectOption = array(
 			'multi' => false,
 			'upsert' => false,
-			'skip' => $tempOffset,
-			'limit' => $tempLimit);
-        $selectOption = array();
+			'$skip' => $tempOffset,
+			'$limit' => $tempLimit);
 
 		// prepare the $mongoFilter, same as WHERE clause(condition) in SQL
 		foreach ($recordArray as $columnName => $value) {
             if(!isset($value))
                 continue;
-            
 
 //			if(isset($this->SearchDataType($dataSchema['data'], 'Field', $index)[0]['Default']))
 //				if ($value == $this->SearchDataType($dataSchema['data'], 'Field', $index)[0]['Default'])
 //					continue;
             
+//            Comparison Query Operators
+//            https://docs.mongodb.com/manual/reference/operator/query-comparison/
             // search for documents where 5 < x < 20
             // column "x" = array( '$gt' => 5, '$lt' => 20 )
 //			$mongoFilter[$columnName] = array('$gt' => $value);
             $mongoFilter[$columnName] = $value;
 		}
         
-//        var_dump($mongoFilter);
-//        var_dump($selectOption);
-
-		$result = $this->ExecuteQuery($mongoFilter, $selectOption);
-
-		$mongoDBResult = $result["mongoDBResult"];
-		$mongoDBResultDataArray = $mongoDBResult->toArray();
+//		$result = $this->ExecuteQuery($mongoFilter, $selectOption);
         
-//        print_r($mongoDBResult);
-//        print_r($mongoDBResultDataArray);
+        // bug: skip is does not work with limit together
+//        $pipeline = [
+//            [ '$match' => (object)$mongoFilter ],
+//            [ '$skip' => $tempOffset ],
+//            [ '$limit' => $tempLimit ]
+//        ];
+        $pipeline = [
+            [ '$match' => (object)$mongoFilter ],
+            [ '$limit' => $tempLimit + $tempOffset ]
+        ];
         
-		$result["data"] = $mongoDBResultDataArray;
-		$result["affected_rows"] = count($mongoDBResultDataArray);
-		$result["num_rows"] = count($mongoDBResultDataArray);
-
+        $result = $this->ExecuteCommand($pipeline);
+        
+        $result['data'] = array_slice($result['data'], $tempOffset);
+        
 		return $result;
 	}
     
@@ -431,29 +428,83 @@ class MongoDBManager {
 
 		$query = new MongoDB\Driver\Query($filter, $options);
 
-		$result = $manager->executeQuery($dbName.'.'.$tableName, $query);
+		$mongoDBResult = $manager->executeQuery($dbName.'.'.$tableName, $query);
 
-		// printf("Updated %d document(s)\n", $result->getModifiedCount());
-		// printf("Matched %d document(s)\n", $result->getMatchedCount());
-		// printf("Upserted documents: %d\n", $result->getUpsertedCount());
-
-		return $this->ExecuteQueryResult($result);
+		return $this->ExecuteQueryResult($mongoDBResult);
 	}
 
 	function ExecuteQueryResult($result){
     	$responseArray = $this->CreateResponseArray();
 
-        // $responseArray["num_rows"] = $result->getInsertedCount();
+		// printf("Inserted %d document(s)\n", $result->getInsertedCount());
+		// printf("Updated %d document(s)\n", $result->getModifiedCount());
+		// printf("Matched %d document(s)\n", $result->getMatchedCount());
+		// printf("Upserted documents: %d\n", $result->getUpsertedCount());
+        
         $responseArray["insert_id"] = 0;
         $responseArray["access_status"] = "OK";
-        // $responseArray["affected_rows"] = $result->getModifiedCount();
 
         $responseArray["mongoDBResult"] = $result;
+        
+		$mongoDBResultDataArray = $result->toArray();
+        
+		$responseArray["data"] = $mongoDBResultDataArray;
+		$responseArray["affected_rows"] = count($mongoDBResultDataArray);
+		$responseArray["num_rows"] = count($mongoDBResultDataArray);
 
         $responseArray["table_schema"] = $this->GetDescribeTableStructureResult()["data"];
 
         return $responseArray;
 	}
+    
+    public function ExecuteCommand($pipeline){
+		$dbName = $this->database_fyp;
+		$tableName = $this->table;
+		$manager = $this->mongoDBManager;
+        
+        $command = new \MongoDB\Driver\Command(
+            [
+               'aggregate' => $tableName, 
+               'pipeline' => $pipeline
+            ]
+        );
+        
+        $cursor = $manager->executeCommand($dbName, $command);
+        
+        return $this->ExecuteCommandResult($cursor);
+    }
+    
+    function ExecuteCommandResult($cursor){
+        
+    	$responseArray = $this->CreateResponseArray();
+
+		// printf("Inserted %d document(s)\n", $result->getInsertedCount());
+		// printf("Updated %d document(s)\n", $result->getModifiedCount());
+		// printf("Matched %d document(s)\n", $result->getMatchedCount());
+		// printf("Upserted documents: %d\n", $result->getUpsertedCount());
+        
+        $responseArray["insert_id"] = 0;
+        $responseArray["access_status"] = "OK";
+
+        $responseArray["mongoDBResult"] = $cursor;
+        
+//		$mongoDBResultDataArray = $result->toArray();
+        $mongoDBResultDataArray = array();
+        foreach($cursor as $key => $document) {
+            foreach($document->result as $index => $record)
+                array_push($mongoDBResultDataArray, $record);
+        }
+        
+//        var_dump($mongoDBResultDataArray);
+        
+		$responseArray["data"] = $mongoDBResultDataArray;
+		$responseArray["affected_rows"] = count($mongoDBResultDataArray);
+		$responseArray["num_rows"] = count($mongoDBResultDataArray);
+
+        $responseArray["table_schema"] = $this->GetDescribeTableStructureResult()["data"];
+        
+        return $responseArray;
+    }
 
     /**
      * Magic Methods: __set(), __set() is run when writing data to inaccessible properties.

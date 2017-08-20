@@ -337,11 +337,12 @@ app.directive('pageview', ['$rootScope',
     		}
     	}
     	$scope.GotoNextPageRecord = function(){
+            
     		if($scope.pageNum >= $scope.lastPageNum && $scope.lastPageNum!=-1){
     			$scope.DisplayMessage = "End of records.";
     			return;
     		}
-
+            
     		$scope.pageNum++;
     		var pageNum = $scope.pageNum;
     		$scope.TryToDisplayPageNum(pageNum);
@@ -391,7 +392,7 @@ app.directive('pageview', ['$rootScope',
             }else{
                 isAllRecordsExists = false;
             }
-
+            
     		if($scope.maxRecordsCount != $scope.dataSource.length || clearNRefresh){
 	    		// Get data if records not enough
 	    		if(!isAllRecordsExists){
