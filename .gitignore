@@ -48,5 +48,4 @@ Temporary Items
 
 # Ignoring third-party source
 web_root/demo/
-web_root/third-party/
 web_root/third-party-source/

@@ -36,7 +36,7 @@
 <script>
 // jQuery
 $(function() {
-	
+
 });
 </script>
 <script>
@@ -50,50 +50,82 @@ app.run(function ($rootScope, $log, Security, config) {
 app.controller('createMasterController', ['$scope', function ($scope, $rootScope) {
 	$scope.directiveScopeDict = {};
 	$scope.directiveCtrlDict = {};
-	
+
 	$scope.EventListener = function(scope, iElement, iAttrs, controller){
 		console.log("<"+iElement[0].tagName+">" +" Directive overried EventListener()");
+    var tagName = iElement[0].tagName.toLowerCase();
 		var prgmID = scope.programId;
-		if($scope.directiveScopeDict[prgmID] == null || typeof($scope.directiveScopeDict[prgmID]) == "undefined"){
-		  $scope.directiveScopeDict[prgmID] = scope;
-		  $scope.directiveCtrlDict[prgmID] = controller;
+    var scopeID = scope.$id;
+    var hashID = scopeID + '_' + tagName + '_' + prgmID;
+
+		if($scope.directiveScopeDict[hashID] == null || typeof($scope.directiveScopeDict[hashID]) == "undefined"){
+		  $scope.directiveScopeDict[hashID] = scope;
+		  $scope.directiveCtrlDict[hashID] = controller;
 		}
-		
+
 		//http://api.jquery.com/Types/#Event
 		//The standard events in the Document Object Model are:
 		// blur, focus, load, resize, scroll, unload, beforeunload,
 		// click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave,
 		// change, select, submit, keydown, keypress, and keyup.
 		iElement.ready(function() {
-			
+
 		})
 	}
-	
+
 	$scope.SetDefaultValue = function(scope, iElement, iAttrs, controller){
 		console.log("<"+iElement[0].tagName+">" +" Directive overried SetDefaultValue()");
-		
+
 //		controller.ngModel.gender = "M";
 	}
-    
+
 	$scope.StatusChange = function(fieldName, newValue, newObj, scope, iElement, iAttrs, controller){
 		console.log("<"+iElement[0].tagName+">" +" Directive overried StatusChange()");
-		
+
 		if(fieldName == "StudentID")
 			newObj.StudentID = newObj.StudentID.toUpperCase();
-		
+
 		if(fieldName == "CourseID")
 			newObj.CourseID = newObj.CourseID.toUpperCase();
 	}
-	
+
 	$scope.ValidateBuffer = function(scope, iElement, iAttrs, controller){
 		console.log("<"+iElement[0].tagName+">" +" Directive overried ValidateBuffer()");
         return true;
 	}
+
+	  $scope.CustomSelectedToRecord = function(sRecord, rowScope, scope, iElement, controller){
+	      console.log("<"+iElement[0].tagName+">" +" Directive overried CustomPointedToRecord()");
+
+	      var tagName = iElement[0].tagName.toLowerCase();
+	      var prgmID = scope.programId.toLowerCase();
+	      var scopeID = scope.$id;
+	      var hashID = scopeID + '_' + tagName + '_' + prgmID;
+
+	      if(typeof $scope.directiveScopeDict[hashID].SetEditboxNgModel == "function")
+	          CustomSelectedToRecordUnderEditbox(sRecord, rowScope, scope, iElement, controller);
+	  }
+
+	  function CustomSelectedToRecordUnderEditbox(sRecord, rowScope, scope, iElement, controller){
+	      var tagName = iElement[0].tagName.toLowerCase();
+	      var prgmID = scope.programId.toLowerCase();
+	      var scopeID = scope.$id;
+	      var hashID = scopeID + '_' + tagName + '_' + prgmID;
+
+	      if(prgmID == "aw01st"){
+	        $scope.entryCreateForm.StudentID = sRecord.StudentID;
+	      }
+	      if(prgmID == "aw01cr"){
+	        $scope.entryCreateForm.CourseID = sRecord.CourseID;
+	      }
+
+
+			}
 }]);
 app.controller('amendMasterController', ['$scope', function ($scope, $rootScope) {
 	$scope.directiveScopeDict = {};
 	$scope.directiveCtrlDict = {};
-	
+
 	$scope.EventListener = function(scope, iElement, iAttrs, controller){
 		console.log("<"+iElement[0].tagName+">" +" Directive overried EventListener()");
 		var prgmID = scope.programId;
@@ -101,33 +133,33 @@ app.controller('amendMasterController', ['$scope', function ($scope, $rootScope)
 		  $scope.directiveScopeDict[prgmID] = scope;
 		  $scope.directiveCtrlDict[prgmID] = controller;
 		}
-		
+
 		//http://api.jquery.com/Types/#Event
 		//The standard events in the Document Object Model are:
 		// blur, focus, load, resize, scroll, unload, beforeunload,
 		// click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave,
 		// change, select, submit, keydown, keypress, and keyup.
 		iElement.ready(function() {
-			
+
 		})
 	}
-	
+
 	$scope.SetDefaultValue = function(scope, iElement, iAttrs, controller){
 		console.log("<"+iElement[0].tagName+">" +" Directive overried SetDefaultValue()");
-		
+
 //		controller.ngModel.gender = "M";
 	}
-	
+
 	$scope.StatusChange = function(fieldName, newValue, newObj, scope, iElement, iAttrs, controller){
 		console.log("<"+iElement[0].tagName+">" +" Directive overried StatusChange()");
-		
+
 		if(fieldName == "StudentID")
 			newObj.StudentID = newObj.StudentID.toUpperCase();
-		
+
 		if(fieldName == "CourseID")
 			newObj.CourseID = newObj.CourseID.toUpperCase();
 	}
-	
+
 	$scope.ValidateBuffer = function(scope, iElement, iAttrs, controller){
 		console.log("<"+iElement[0].tagName+">" +" Directive overried ValidateBuffer()");
         return true;
@@ -137,7 +169,7 @@ app.controller('amendMasterController', ['$scope', function ($scope, $rootScope)
         console.log("<"+iElement[0].tagName+">" +" Directive overried CustomPointedToRecord()");
         $scope.entryAmendForm = sRecord;
     }
-    
+
     $scope.CustomSubmitDataResult = function(responseObj, httpStatusCode, scope, element, attrs, ctrl){
         var prgmID = scope.programId;
         if(prgmID == "ae01en"){
@@ -148,7 +180,7 @@ app.controller('amendMasterController', ['$scope', function ($scope, $rootScope)
 app.controller('deleteMasterController', ['$scope', function ($scope, $rootScope) {
 	$scope.directiveScopeDict = {};
 	$scope.directiveCtrlDict = {};
-	
+
 	$scope.EventListener = function(scope, iElement, iAttrs, controller){
 		console.log("<"+iElement[0].tagName+">" +" Directive overried EventListener()");
 		var prgmID = scope.programId;
@@ -156,27 +188,27 @@ app.controller('deleteMasterController', ['$scope', function ($scope, $rootScope
 		  $scope.directiveScopeDict[prgmID] = scope;
 		  $scope.directiveCtrlDict[prgmID] = controller;
 		}
-		
+
 		//http://api.jquery.com/Types/#Event
 		//The standard events in the Document Object Model are:
 		// blur, focus, load, resize, scroll, unload, beforeunload,
 		// click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave,
 		// change, select, submit, keydown, keypress, and keyup.
 		iElement.ready(function() {
-			
+
 		})
 	}
-	
+
 	$scope.SetDefaultValue = function(scope, iElement, iAttrs, controller){
 		console.log("<"+iElement[0].tagName+">" +" Directive overried SetDefaultValue()");
-		
+
 //		controller.ngModel.gender = "M";
 	}
-	
+
 	$scope.StatusChange = function(fieldName, newValue, newObj, scope, iElement, iAttrs, controller){
 		console.log("<"+iElement[0].tagName+">" +" Directive overried StatusChange()");
 	}
-	
+
 	$scope.ValidateBuffer = function(scope, iElement, iAttrs, controller){
 		console.log("<"+iElement[0].tagName+">" +" Directive overried ValidateBuffer()");
         return true;
@@ -186,7 +218,7 @@ app.controller('deleteMasterController', ['$scope', function ($scope, $rootScope
         console.log("<"+iElement[0].tagName+">" +" Directive overried CustomPointedToRecord()");
         $scope.entryAmendForm = sRecord;
     }
-    
+
     $scope.CustomSubmitDataResult = function(responseObj, httpStatusCode, scope, element, attrs, ctrl){
         var prgmID = scope.programId;
         if(prgmID == "ae01en"){
@@ -248,15 +280,15 @@ app.controller('deleteMasterController', ['$scope', function ($scope, $rootScope
 	</div>
 </div>
 <!-- InstanceEndEditable -->
-<!-- site location start --> 
+<!-- site location start -->
 <!-- InstanceBeginEditable name="breadcrumb" -->
 <ul class="uk-breadcrumb">
     <li>Entry</li>
     <li class="uk-active"><a href="enrolled.html">Enrollment</a></li>
 </ul>
-<!-- InstanceEndEditable --> 
+<!-- InstanceEndEditable -->
 </div>
-<!-- site location end --> 
+<!-- site location end -->
 <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
 <!-- InstanceBeginEditable name="intro" -->
 	<div class="uk-panel uk-panel-box">
@@ -274,7 +306,14 @@ app.controller('deleteMasterController', ['$scope', function ($scope, $rootScope
 			  <div class="uk-form-row">
 				<label for="inputStudentID" class="uk-form-label">Student ID</label>
 				<div class="uk-form-controls">
-				  <input type="text" id="inputStudentID" ng-model="entryCtrl.ngModel.StudentID">
+				  <!-- <input type="text" id="inputStudentID" ng-model="entryCtrl.ngModel.StudentID"> -->
+
+						<editbox ng-model="stdEditbox" program-id="aw01st">
+						  <input type="text" id="inputStudentID" ng-model="entryCtrl.ngModel.StudentID" readonly>
+						  <button type="button" class="uk-button" id="inputDeptIDBtn" ng-click="OpenPageView()"><i class="fa fa-bars"></i></button>
+						  <input type="text" class="uk-form-blank uk-form-width-large" id="inputStudentName" ng-model="editboxCtrl.ngModel.StuName" readonly>
+							<span ng-bind="courseEditbox.ngModel.StuName"></span>
+						</editbox>
 				</div>
 			  </div>
 			  <div class="uk-form-row">
@@ -286,7 +325,14 @@ app.controller('deleteMasterController', ['$scope', function ($scope, $rootScope
 			  <div class="uk-form-row">
 				<label for="inputCourseID" class="uk-form-label">CourseID</label>
 				<div class="uk-form-controls">
-				  <input type="text" id="inputCourseID" ng-model="entryCtrl.ngModel.CourseID">
+				  <!-- <input type="text" id="inputCourseID" ng-model="entryCtrl.ngModel.CourseID"> -->
+						<editbox ng-model="courseEditbox" program-id="aw01cr">
+
+						  <input type="text" id="inputCourseID" ng-model="entryCtrl.ngModel.CourseID" readonly>
+						  <button type="button" class="uk-button" id="inputDeptIDBtn" ng-click="OpenPageView()"><i class="fa fa-bars"></i></button>
+						  <input type="text" class="uk-form-blank uk-form-width-large" id="inputCoursetName" ng-model="editboxCtrl.ngModel.Title" readonly>
+							<span ng-bind="courseEditbox.ngModel.Title"></span>
+						</editbox>
 				</div>
 			  </div>
 			  <div class="uk-form-row">

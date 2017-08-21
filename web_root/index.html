@@ -36,7 +36,7 @@
 <script>
 // jQuery
 $(function() {
-	
+
 });
 </script>
 <script>
@@ -59,6 +59,17 @@ app.controller('testCtrl', ['$scope', function ($scope, $rootScope) {
 	<div class="uk-navbar-flip uk-hidden-small">
 		<ul class="uk-navbar-nav">
 			<li class="uk-active"><a href="index.html">Home <span class="fa fa-globe fa-lg"></span></a></li>
+			<li class="uk-parent" data-uk-dropdown><a href="#">Inquiry <span class="fa fa-search fa-lg"></span></a>
+				<div class="uk-dropdown">
+					<ul class="uk-nav uk-nav-navbar">
+						<li><a href="find_a.html">Query a</a></li>
+						<li><a href="find_b.html">Query b</a></li>
+						<li><a href="find_c.html">Query c</a></li>
+						<li><a href="find_d.html">Query d</a></li>
+						<li><a href="find_e.html">Query e</a></li>
+					</ul>
+				</div>
+			</li>
 			<li><a href="department.html">Department <span class="fa fa-bank fa-lg"></span></a></li>
 			<li><a href="courses.html">Courses <span class="fa fa-money fa-lg"></span></a></li>
 			<li><a href="offer.html">Offer <span class="fa fa-money fa-lg"></span></a></li>
@@ -77,7 +88,9 @@ app.controller('testCtrl', ['$scope', function ($scope, $rootScope) {
 		<div class="uk-offcanvas-bar">
 			<!-- InstanceBeginEditable name="offCanvasNav" -->
 			<ul class="uk-nav uk-nav-offcanvas">
-				<li class="uk-active"><a href="bank/index.html">Home <span class="fa fa-globe fa-lg"></span></a></li>
+				<li class="uk-active"><a href="index.html">Home <span class="fa fa-globe fa-lg"></span></a></li>
+				<li><a href="index.html">Inquiry <span class="fa fa-search fa-lg"></span></a>
+				</li>
 				<li><a href="department.html">Department <span class="fa fa-bank fa-lg"></span></a></li>
 				<li><a href="courses.html">Courses <span class="fa fa-money fa-lg"></span></a></li>
 				<li><a href="offer.html">Offer <span class="fa fa-money fa-lg"></span></a></li>
@@ -92,24 +105,45 @@ app.controller('testCtrl', ['$scope', function ($scope, $rootScope) {
 <!-- InstanceBeginEditable name="page-header" -->
 <div class="uk-grid" data-uk-grid-margin="">
 	<div class="uk-width-1-1 uk-row-first">
-		<h1 class="uk-heading-large">Heading</h1>
-		<p class="uk-text-large">Subheading or Description.</p>
+		<h1 class="uk-heading-large">Course Enrollment</h1>
+		<p class="uk-text-large">Emroll Course application for a university.</p>
 	</div>
 </div>
 <!-- InstanceEndEditable -->
-<!-- site location start --> 
+<!-- site location start -->
 <!-- InstanceBeginEditable name="breadcrumb" -->
 <ul class="uk-breadcrumb">
-    <li><a href="bank/index.html">Banking</a></li>
-    <li><a href="#">Some where</a></li>
-    <li class="uk-active"><span>...</span></li>
+    <li>Home</li>
+		<li>Site Map</li>
 </ul>
-<!-- InstanceEndEditable --> 
+<!-- InstanceEndEditable -->
 </div>
-<!-- site location end --> 
+<!-- site location end -->
 <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
 <!-- InstanceBeginEditable name="intro" -->
-place your content hered
+<ul class="uk-nav uk-nav-parent-icon" data-uk-nav="{multiple:true}">
+	<li class="uk-nav-header">System Implementation</li>
+	<li class="uk-parent"><a href="#">Query Functions</a>
+		<ul class="uk-nav-sub">
+			<li><a href="department.html">Department <span class="fa fa-bank fa-lg"></span></a></li>
+			<li><a href="courses.html">Courses <span class="fa fa-money fa-lg"></span></a></li>
+			<li><a href="offer.html">Offer <span class="fa fa-money fa-lg"></span></a></li>
+			<li><a href="students.html">Students <span class="fa fa-money fa-lg"></span></a></li>
+			<li><a href="enrolled.html">Enrolled <span class="fa fa-money fa-lg"></span></a></li>
+		</ul>
+	</li>
+	<li class="uk-nav-divider"></li>
+	<li class="uk-nav-header">Query Functions Implementation</li>
+	<li class="uk-parent"><a href="#">Query Functions</a>
+		<ul class="uk-nav-sub">
+			<li><a href="find_a.html">Query a</a></li>
+			<li><a href="find_b.html">Query b</a></li>
+			<li><a href="find_c.html">Query c</a></li>
+			<li><a href="find_d.html">Query d</a></li>
+			<li><a href="find_e.html">Query e</a></li>
+		</ul>
+	</li>
+</ul>
 <!-- InstanceEndEditable -->
 </div>
 <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom" id="content"> <!-- InstanceBeginEditable name="content" -->

@@ -66,7 +66,6 @@ app.directive('pageview', ['$rootScope',
                 var isParentScopeFromEditbox = false;
                 if(typeof ($scope.$parent.SetEditboxNgModel) == "function")
                     isParentScopeFromEditbox = true;
-
                 if(!isParentScopeFromEditbox)
             	   alert("<pageview> Must declare a attribute of program-id");
             }
@@ -337,12 +336,12 @@ app.directive('pageview', ['$rootScope',
     		}
     	}
     	$scope.GotoNextPageRecord = function(){
-            
+
     		if($scope.pageNum >= $scope.lastPageNum && $scope.lastPageNum!=-1){
     			$scope.DisplayMessage = "End of records.";
     			return;
     		}
-            
+
     		$scope.pageNum++;
     		var pageNum = $scope.pageNum;
     		$scope.TryToDisplayPageNum(pageNum);
@@ -392,7 +391,7 @@ app.directive('pageview', ['$rootScope',
             }else{
                 isAllRecordsExists = false;
             }
-            
+
     		if($scope.maxRecordsCount != $scope.dataSource.length || clearNRefresh){
 	    		// Get data if records not enough
 	    		if(!isAllRecordsExists){
@@ -1169,10 +1168,10 @@ app.directive('entry', ['$rootScope',
                 submitPromise.then(function(responseObj) {
                     httpResponseObj = responseObj;
                     var data_or_JqXHR = responseObj.data;
-                    msg = data_or_JqXHR.Message;                    
-                    
+                    msg = data_or_JqXHR.Message;
+
                     var actionResult = data_or_JqXHR.ActionResult;
-                    
+
                     if(actionResult.num_rows > 0 || actionResult.insert_id > 0 || actionResult.affected_rows > 0)
                         $scope.ResetForm();
                 }, function(reason) {
@@ -1228,7 +1227,7 @@ app.directive('entry', ['$rootScope',
                 // Always execute unlock on both error and success
                 $scope.UnLockAllControls();
                 $scope.HideLoadModal();
-                
+
                 MessageService.addMsg(msg);
                 SubmitDataResult(httpResponseObj, httpResponseObj.status);
                 $scope.HideLoadModal();
@@ -1467,7 +1466,7 @@ app.directive('entry', ['$rootScope',
 //                        continue;
 //                    }
 //                }
-                
+
                 // if the column is auto increase set it null
                 if(itemsColumn[colIndex].extra == "auto_increment"){
                     continue;
@@ -2945,7 +2944,7 @@ app.directive('message', ['$rootScope',
             DirectiveProperties.getAutoClose();
 
             $ctrl.ngModel = [];
-            
+
 //            MessageService.setMsg($ctrl.ngModel);
             $ctrl.ngModel = MessageService.getMsg();
             $scope.ngModel = $ctrl.ngModel;
@@ -2987,7 +2986,7 @@ app.directive('message', ['$rootScope',
 
               var newValueLength = newValue.length;
               var oldValueLength = oldValue.length;
-              
+
             if ( newValueLength !== oldValueLength ) {
 //                if(newValueLength > oldValueLength){
                     if($scope.autoClose)
@@ -3296,7 +3295,7 @@ app.directive('range', ['$rootScope',
                     transclude(scope, function (clone, scope) {
                         iElement.find('.custom-transclude').append(clone);
                     })
-                    
+
                     scope.Initialize();
                 }
             }

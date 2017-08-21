@@ -3,9 +3,9 @@
 class OfferManager extends MongoDBManager {
     public $_ = array(
     );
-	
+
 	protected $table = "Offer";
-    
+
     function __construct() {
 		parent::__construct();
     }
@@ -13,7 +13,7 @@ class OfferManager extends MongoDBManager {
     public function DescribeTableStructure(){
         $responseArray = array();
     	$responseArray = $this->CreateResponseArray();
-        
+
         $responseArray["data"] = array(
         	array(
         		"Field" => "DeptID",
@@ -33,7 +33,7 @@ class OfferManager extends MongoDBManager {
         		"Field" => "Year",
         		"Type" => "int(4)",
         		"Null" => "NO",
-        		"Key" => null,
+        		"Key" => "PRI",
         		"Default" => null,
         		"Extra" => null),
         	array(
@@ -51,7 +51,7 @@ class OfferManager extends MongoDBManager {
         		"Default" => null,
         		"Extra" => null)
         );
-        
+
         $responseArray["KeyColumns"] = array("DeptID", "CourseID");
 
         $responseArray["num_rows"] = 1;
@@ -64,7 +64,7 @@ class OfferManager extends MongoDBManager {
 
     public function getPrimaryKeyName(){
         $responseArray = array();
-        
+
         $responseArray["data"] = array(
         	"Field"=>array(
                 "DeptID",
@@ -74,11 +74,11 @@ class OfferManager extends MongoDBManager {
 
         return $responseArray;
     }
-    
+
 	function SetDefaultValue(){
 		parent::setDefaultValue();
 	}
-    
+
     function __isset($name) {
         return isset($this->_[$name]);
     }
