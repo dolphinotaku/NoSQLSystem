@@ -35,7 +35,43 @@ class MongoDBManager {
 		$this->setArrayIndex();
     }
     
-    
+    public function CheckKeyExists(){
+    	$isKeyExists = false;
+		$checkWhereClause = "";
+		$isPKMissing = true;
+        
+		// prepare select
+		$mongoFilter = array();
+		$recordArray = $this->_;
+		$dataSchema = $this->dataSchema;
+		$primaryKeySchema = $this->getPrimaryKeyName();
+
+		$selectOption = array('multi' => false, 'upsert' => false);
+
+		// prepare the $mongoFilter, same as WHERE clause(condition) in SQL
+		foreach ($primaryKeySchema['data']['Field'] as $index => $columnName){
+			$value = $recordArray[$columnName];
+			if($this->IsNullOrEmptyString($value)){
+                $isPKMissing = $isPKMissing && true;
+			}else{
+				$mongoFilter[$columnName] = $value;
+                $isPKMissing = false;
+			}
+		}
+
+		// stop and return false if one/part of the Composite Primary Key are missing
+		if($isPKMissing)
+			return $isKeyExists;
+
+		$result = $this->ExecuteQuery($mongoFilter, $selectOption);
+        
+		if($result['num_rows'])
+			$isKeyExists = true;
+		else
+			$isKeyExists = false;
+
+		return $isKeyExists;
+    }
 	
 	public function Insert(){
 		// prepare insert
@@ -46,6 +82,21 @@ class MongoDBManager {
 		// 	'DeptName' => 'Computer Science',
 		// 	'Location' => 'Green Zone'
 		// ];
+        
+        // check record duplicate
+        if($this->CheckKeyExists()){
+            $responseArray = $this->CreateResponseArray();
+
+            $responseArray["num_rows"] = 0;
+            $responseArray["insert_id"] = 0;
+            $responseArray["access_status"] = Core::$access_status["Duplicate"];
+            $responseArray["affected_rows"] = 0;
+            $responseArray["error"] = "Record Duplicated";
+
+            $responseArray["mongoDBResult"] = [];
+
+            return $responseArray;
+        }
 
 		$document1 = array();
 		foreach ($this->_ as $key => $value) {
@@ -69,6 +120,21 @@ class MongoDBManager {
 		$bulk = $this->GetBulkWrite();
 		$mongoFilter = array();
 		$recordArray = $this->_;
+        
+        // check record exists
+        if(!$this->CheckKeyExists()){
+            $responseArray = $this->CreateResponseArray();
+
+            $responseArray["num_rows"] = 0;
+            $responseArray["insert_id"] = 0;
+            $responseArray["access_status"] = Core::$access_status["RecordNotFound"];
+            $responseArray["affected_rows"] = 0;
+            $responseArray["error"] = "Record Not Found, cannot update";
+
+            $responseArray["mongoDBResult"] = [];
+
+            return $responseArray;
+        }
 
 		$primaryKeySchema = $this->getPrimaryKeyName();
 
@@ -138,6 +204,21 @@ class MongoDBManager {
 		$bulk = $this->GetBulkWrite();
 		$mongoFilter = array();
 		$recordArray = $this->_;
+        
+        // check record exists
+        if(!$this->CheckKeyExists()){
+            $responseArray = $this->CreateResponseArray();
+
+            $responseArray["num_rows"] = 0;
+            $responseArray["insert_id"] = 0;
+            $responseArray["access_status"] = Core::$access_status["RecordNotFound"];
+            $responseArray["affected_rows"] = 0;
+            $responseArray["error"] = "Record Not Found, cannot update";
+
+            $responseArray["mongoDBResult"] = [];
+
+            return $responseArray;
+        }
 
 		$primaryKeySchema = $this->getPrimaryKeyName();
 

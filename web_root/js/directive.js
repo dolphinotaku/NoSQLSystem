@@ -301,11 +301,11 @@ app.directive('pageview', ['$rootScope',
             var pageNum = $scope.pageNum;
 
             $scope.DisplayMessage = "";
-            // $scope.dataSource = [];
-            // $scope.sortedDataSource = [];
+            $scope.dataSource = [];
+            $scope.sortedDataSource = [];
             $scope.currentPageRecords = {};
             $ctrl.ngModel = {};
-            // $scope.maxRecordsCount = -1;
+            $scope.maxRecordsCount = -1;
             $scope.getNextPageTimes = 0;
 
             $scope.TryToDisplayPageNum(pageNum, true);
