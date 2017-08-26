@@ -1,0 +1,90 @@
+{
+	"_id" : ObjectId("5997158ea97e512e60006097"),
+	"DeptID" : "CS",
+	"DeptName" : "Computer Science",
+	"Location" : "Green Zone"
+},
+{
+	"_id" : ObjectId("59971ebaa97e512e600060a0"),
+	"DeptID" : "T1",
+	"DeptName" : "111",
+	"Location" : "111"
+},
+{
+	"_id" : ObjectId("5997c8a4a97e512e600060a1"),
+	"DeptID" : "T2",
+	"DeptName" : "222",
+	"Location" : "222"
+},
+{
+	"_id" : ObjectId("5997d099a97e512e600060a4"),
+	"DeptID" : "T5",
+	"DeptName" : "5",
+	"Location" : "5"
+},
+{
+	"_id" : ObjectId("5997d1b2a97e512e600060a5"),
+	"DeptID" : "T6",
+	"DeptName" : "6",
+	"Location" : "6"
+},
+{
+	"_id" : ObjectId("5997d2ada97e512e600060a6"),
+	"DeptID" : "T7",
+	"DeptName" : "7",
+	"Location" : "7"
+},
+{
+	"_id" : ObjectId("5997d2cda97e512e600060a7"),
+	"DeptID" : "T8",
+	"DeptName" : "8",
+	"Location" : "8"
+},
+{
+	"_id" : ObjectId("5997d2eaa97e512e600060a8"),
+	"DeptID" : "T9",
+	"DeptName" : "9",
+	"Location" : "9"
+},
+{
+	"_id" : ObjectId("59998be6a97e512e600060b7"),
+	"DeptID" : "T10",
+	"DeptName" : "10",
+	"Location" : "10"
+},
+{
+	"_id" : ObjectId("59998c0da97e512e600060b8"),
+	"DeptID" : "T11",
+	"DeptName" : "11",
+	"Location" : "11"
+},
+{
+	"_id" : ObjectId("59998c13a97e512e600060b9"),
+	"DeptID" : "T12",
+	"DeptName" : "12",
+	"Location" : "12"
+},
+{
+	"_id" : ObjectId("59999c0ca97e517408003717"),
+	"DeptID" : "IS",
+	"DeptName" : "Information System",
+	"Location" : "Blue Zone"
+},
+{
+	"_id" : ObjectId("599d0feea97e517408003720"),
+	"DeptID" : "G1",
+	"DeptName" : "test",
+	"Location" : "test"
+},
+{
+	"_id" : ObjectId("599d137ba97e517408003724"),
+	"DeptID" : "G2",
+	"DeptName" : "gg2",
+	"Location" : "gg2"
+},
+{
+	"_id" : ObjectId("599d139da97e517408003725"),
+	"DeptID" : "G3",
+	"DeptName" : "gg3",
+	"Location" : "gg3"
+},

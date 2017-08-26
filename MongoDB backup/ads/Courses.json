@@ -1,0 +1,24 @@
+{
+	"_id" : ObjectId("5997d947a97e512e600060a9"),
+	"CourseID" : "CS101",
+	"Level" : "6",
+	"Title" : "Introduction to Data Science"
+},
+{
+	"_id" : ObjectId("5997d957a97e512e600060aa"),
+	"CourseID" : "C1",
+	"Level" : "5",
+	"Title" : "BSc (Hons) Computer Science"
+},
+{
+	"_id" : ObjectId("59999c48a97e517408003718"),
+	"CourseID" : "C2",
+	"Level" : "5",
+	"Title" : "BSc (Hons) Information Systems"
+},
+{
+	"_id" : ObjectId("599ab3e9184add5db4001bad"),
+	"CourseID" : "C3",
+	"Level" : "5",
+	"Title" : "BSc (Hons) Business Information Technology"
+},

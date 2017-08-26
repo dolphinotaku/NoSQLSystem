@@ -1,0 +1,72 @@
+{
+	"_id" : ObjectId("5997daf2a97e512e600060ab"),
+	"AvailablePlaces" : 40.0,
+	"ClassSize" : 40.0,
+	"CourseID" : "CS101",
+	"DeptID" : "CS",
+	"Year" : 2016.0
+},
+{
+	"_id" : ObjectId("5997dafea97e512e600060ac"),
+	"AvailablePlaces" : 33.0,
+	"ClassSize" : 33.0,
+	"CourseID" : "T2",
+	"DeptID" : "T1",
+	"Year" : 2015.0
+},
+{
+	"_id" : ObjectId("59999c5f1292132c4ceda74e"),
+	"AvailablePlaces" : 40.0,
+	"ClassSize" : 40.0,
+	"CourseID" : "C2",
+	"DeptID" : "IS",
+	"Year" : 2016.0
+},
+{
+	"_id" : ObjectId("599aa672184add5db4001ba9"),
+	"AvailablePlaces" : 80.0,
+	"ClassSize" : 80.0,
+	"CourseID" : "C1",
+	"DeptID" : "CS",
+	"Year" : 2018.0
+},
+{
+	"_id" : ObjectId("599ab495184add5db4001bae"),
+	"AvailablePlaces" : 40.0,
+	"ClassSize" : 40.0,
+	"CourseID" : "C1",
+	"DeptID" : "CS",
+	"Year" : 2017.0
+},
+{
+	"_id" : ObjectId("599ab4a1184add5db4001baf"),
+	"AvailablePlaces" : 20.0,
+	"ClassSize" : 20.0,
+	"CourseID" : "C1",
+	"DeptID" : "CS",
+	"Year" : 2016.0
+},
+{
+	"_id" : ObjectId("599ab4b5184add5db4001bb0"),
+	"AvailablePlaces" : 60.0,
+	"ClassSize" : 60.0,
+	"CourseID" : "C2",
+	"DeptID" : "IS",
+	"Year" : 2017.0
+},
+{
+	"_id" : ObjectId("599ab4e7184add5db4001bb1"),
+	"AvailablePlaces" : 70.0,
+	"ClassSize" : 70.0,
+	"CourseID" : "C2",
+	"DeptID" : "IS",
+	"Year" : 2018.0
+},
+{
+	"_id" : ObjectId("599b04a1184add5db4001bb8"),
+	"AvailablePlaces" : 10.0,
+	"ClassSize" : 10.0,
+	"CourseID" : "CS101",
+	"DeptID" : "CS",
+	"Year" : 2015.0
+},

@@ -1,0 +1,91 @@
+{
+	"_id" : ObjectId("5997e28ea97e512e600060b0"),
+	"CourseID" : "CS101",
+	"EnrolDate" : "'2017-08-19'",
+	"StudentID" : "15101010",
+	"Year" : 2016.0
+},
+{
+	"_id" : ObjectId("5997e2a0a97e512e600060b1"),
+	"CourseID" : "C1",
+	"EnrolDate" : "'2016-12-21'",
+	"StudentID" : "S1",
+	"Year" : 2016.0
+},
+{
+	"_id" : ObjectId("5999ad25a97e517408003719"),
+	"CourseID" : "C2",
+	"EnrolDate" : "'2016-08-20'",
+	"StudentID" : "S2",
+	"Year" : 2016.0
+},
+{
+	"_id" : ObjectId("5999ad38a97e51740800371a"),
+	"CourseID" : "C2",
+	"EnrolDate" : "'2016-06-14'",
+	"StudentID" : "S3",
+	"Year" : 2016.0
+},
+{
+	"_id" : ObjectId("599aa42d184add5db4001ba6"),
+	"CourseID" : "C3",
+	"EnrolDate" : "'2017-08-21'",
+	"StudentID" : "S4",
+	"Year" : 2017.0
+},
+{
+	"_id" : ObjectId("599aa438184add5db4001ba7"),
+	"CourseID" : "C3",
+	"EnrolDate" : "'2017-08-03'",
+	"StudentID" : "S5",
+	"Year" : 2017.0
+},
+{
+	"_id" : ObjectId("599aa444184add5db4001ba8"),
+	"CourseID" : "C4",
+	"EnrolDate" : "'2017-08-09'",
+	"StudentID" : "S6",
+	"Year" : 2017.0
+},
+{
+	"_id" : ObjectId("599ab57d184add5db4001bb2"),
+	"CourseID" : "C3",
+	"EnrolDate" : "'2016-08-21'",
+	"StudentID" : "S7",
+	"Year" : 2016.0
+},
+{
+	"_id" : ObjectId("599ab5bb184add5db4001bb3"),
+	"CourseID" : "C1",
+	"EnrolDate" : "'2016-08-15'",
+	"StudentID" : "S8",
+	"Year" : 2016.0
+},
+{
+	"_id" : ObjectId("599ab5d7184add5db4001bb4"),
+	"CourseID" : "C1",
+	"EnrolDate" : "'2016-08-13'",
+	"StudentID" : "S9",
+	"Year" : 2016.0
+},
+{
+	"_id" : ObjectId("599ab66c184add5db4001bb5"),
+	"CourseID" : "C1",
+	"EnrolDate" : "'2017-08-21'",
+	"StudentID" : "S101",
+	"Year" : 2017.0
+},
+{
+	"_id" : ObjectId("599af9bb184add5db4001bb6"),
+	"CourseID" : "CS101",
+	"EnrolDate" : "'2015-07-17'",
+	"StudentID" : "15101010",
+	"Year" : 2015.0
+},
+{
+	"_id" : ObjectId("599afa54184add5db4001bb7"),
+	"CourseID" : "C1",
+	"EnrolDate" : "'2016-08-16'",
+	"StudentID" : "15101010",
+	"Year" : 2016.0
+},

@@ -1,0 +1,18 @@
+{
+	"_id" : ObjectId("5997de72a97e512e600060ad"),
+	"DOB" : "'2009-08-10'",
+	"StudentID" : "15101010",
+	"StuName" : "Chan Tai Man"
+},
+{
+	"_id" : ObjectId("5997df76a97e512e600060ae"),
+	"DOB" : "'2017-08-19'",
+	"StudentID" : "S1",
+	"StuName" : "Wong Tai Man"
+},
+{
+	"_id" : ObjectId("5997df92a97e512e600060af"),
+	"DOB" : "'2002-10-24'",
+	"StudentID" : "S2",
+	"StuName" : "Peter Chan"
+},
