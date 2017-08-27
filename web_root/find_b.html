@@ -113,6 +113,17 @@ app.controller('inquiryController', ['$scope', function ($scope, $rootScope) {
 	<div class="uk-navbar-flip uk-hidden-small">
 		<ul class="uk-navbar-nav">
 			<li><a href="index.html">Home <span class="fa fa-globe fa-lg"></span></a></li>
+			<li class="uk-parent" data-uk-dropdown><a href="#">Inquiry <span class="fa fa-search fa-lg"></span></a>
+				<div class="uk-dropdown">
+					<ul class="uk-nav uk-nav-navbar">
+						<li><a href="find_a.html">Query a</a></li>
+						<li><a href="find_b.html">Query b</a></li>
+						<li><a href="find_c.html">Query c</a></li>
+						<li><a href="find_d.html">Query d</a></li>
+						<li><a href="find_e.html">Query e</a></li>
+					</ul>
+				</div>
+			</li>
 			<li><a href="department.html">Department <span class="fa fa-sitemap fa-lg"></span></a></li>
 			<li><a href="courses.html">Courses <span class="fa fa-users fa-lg"></span></a></li>
 			<li><a href="offer.html">Offer <span class="fa fa-envelope-o fa-lg"></span></a></li>
@@ -132,6 +143,8 @@ app.controller('inquiryController', ['$scope', function ($scope, $rootScope) {
 			<!-- InstanceBeginEditable name="offCanvasNav" -->
 			<ul class="uk-nav uk-nav-offcanvas">
 				<li><a href="index.html">Home <span class="fa fa-globe fa-lg"></span></a></li>
+				<li><a href="index.html">Inquiry <span class="fa fa-search fa-lg"></span></a>
+				</li>
 				<li><a href="department.html">Department <span class="fa fa-sitemap fa-lg"></span></a></li>
 				<li><a href="courses.html">Courses <span class="fa fa-users fa-lg"></span></a></li>
 				<li><a href="offer.html">Offer <span class="fa fa-envelope-o fa-lg"></span></a></li>
@@ -154,7 +167,7 @@ app.controller('inquiryController', ['$scope', function ($scope, $rootScope) {
 <!-- site location start --> 
 <!-- InstanceBeginEditable name="breadcrumb" -->
 <ul class="uk-breadcrumb">
-    <li>Entry</li>
+    <li>Query</li>
     <li class="uk-active"><a href="find_b.html">Query Function B</a></li>
 </ul>
 <!-- InstanceEndEditable --> 

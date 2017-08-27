@@ -87,6 +87,37 @@ app.controller('createMasterController', ['$scope', function ($scope, $rootScope
         return true;
 	}
 }]);
+app.controller('viewMasterController', ['$scope', function ($scope, $rootScope) {
+	$scope.directiveScopeDict = {};
+	$scope.directiveCtrlDict = {};
+	
+	$scope.EventListener = function(scope, iElement, iAttrs, controller){
+		console.log("<"+iElement[0].tagName+">" +" Directive overried EventListener()");
+		var prgmID = scope.programId;
+		if($scope.directiveScopeDict[prgmID] == null || typeof($scope.directiveScopeDict[prgmID]) == "undefined"){
+		  $scope.directiveScopeDict[prgmID] = scope;
+		  $scope.directiveCtrlDict[prgmID] = controller;
+		}
+		
+		//http://api.jquery.com/Types/#Event
+		//The standard events in the Document Object Model are:
+		// blur, focus, load, resize, scroll, unload, beforeunload,
+		// click, dblclick, mousedown, mouseup, mousemove, mouseover, mouseout, mouseenter, mouseleave,
+		// change, select, submit, keydown, keypress, and keyup.
+		iElement.ready(function() {
+			
+		})
+	}
+
+    $scope.CustomSelectedToRecord = function(sRecord, rowScope, scope, iElement, controller){
+        console.log("<"+iElement[0].tagName+">" +" Directive overried CustomPointedToRecord()");
+        $scope.entryViewForm = sRecord;
+    }
+    
+    $scope.CustomSubmitDataResult = function(responseObj, httpStatusCode, scope, element, attrs, ctrl){
+        var prgmID = scope.programId;
+    }
+}]);
 app.controller('amendMasterController', ['$scope', function ($scope, $rootScope) {
 	$scope.directiveScopeDict = {};
 	$scope.directiveCtrlDict = {};
@@ -204,6 +235,17 @@ app.controller('deleteMasterController', ['$scope', function ($scope, $rootScope
 	<div class="uk-navbar-flip uk-hidden-small">
 		<ul class="uk-navbar-nav">
 			<li><a href="index.html">Home <span class="fa fa-globe fa-lg"></span></a></li>
+			<li class="uk-parent" data-uk-dropdown><a href="#">Inquiry <span class="fa fa-search fa-lg"></span></a>
+				<div class="uk-dropdown">
+					<ul class="uk-nav uk-nav-navbar">
+						<li><a href="find_a.html">Query a</a></li>
+						<li><a href="find_b.html">Query b</a></li>
+						<li><a href="find_c.html">Query c</a></li>
+						<li><a href="find_d.html">Query d</a></li>
+						<li><a href="find_e.html">Query e</a></li>
+					</ul>
+				</div>
+			</li>
 			<li><a href="department.html">Department <span class="fa fa-sitemap fa-lg"></span></a></li>
 			<li><a href="courses.html">Courses <span class="fa fa-users fa-lg"></span></a></li>
 			<li><a href="offer.html">Offer <span class="fa fa-envelope-o fa-lg"></span></a></li>
@@ -223,6 +265,8 @@ app.controller('deleteMasterController', ['$scope', function ($scope, $rootScope
 			<!-- InstanceBeginEditable name="offCanvasNav" -->
 			<ul class="uk-nav uk-nav-offcanvas">
 				<li><a href="index.html">Home <span class="fa fa-globe fa-lg"></span></a></li>
+				<li><a href="index.html">Inquiry <span class="fa fa-search fa-lg"></span></a>
+				</li>
 				<li><a href="department.html">Department <span class="fa fa-sitemap fa-lg"></span></a></li>
 				<li><a href="courses.html">Courses <span class="fa fa-users fa-lg"></span></a></li>
 				<li><a href="offer.html">Offer <span class="fa fa-envelope-o fa-lg"></span></a></li>
@@ -260,102 +304,148 @@ app.controller('deleteMasterController', ['$scope', function ($scope, $rootScope
 	  </div>
 	</div>
 	<h2>Student Entry</h2>
-	<div class="uk-block" ng-controller="createMasterController as createMasterCtrl">
-		<h3>Create Course</h3>
-		<entry ng-model="entryCreateForm" program-id="ae01st" edit-mode="create">
-		  <form ng-submit="SubmitData()" class="uk-form uk-form-horizontal">
-			<fieldset data-uk-margin>
-			  <div class="uk-form-row">
-				<label for="inputStudentID" class="uk-form-label">Student ID</label>
-				<div class="uk-form-controls">
-				  <input type="text" id="inputStudentID" ng-model="entryCtrl.ngModel.StudentID">
-				</div>
-			  </div>
-			  <div class="uk-form-row">
-				<label for="inputStuName" class="uk-form-label">Student Name</label>
-				<div class="uk-form-controls">
-				  <input type="text" id="inputStuName" ng-model="entryCtrl.ngModel.StuName">
-				</div>
-			  </div>
-			  <div class="uk-form-row">
-				<label for="inputDOB" class="uk-form-label">Date of Birth</label>
-				<div class="uk-form-controls">
-				  <input type="date" id="inputDOB" ng-model="entryCtrl.ngModel.DOB">
-				</div>
-			  </div>
-			  <div class="uk-form-row">
-				<button type="submit" class="uk-button">Create</button>
-			  </div>
-			</fieldset>
-		  </form>
-		</entry>
-	</div>
-	<div class="uk-block" ng-controller="amendMasterController as createMasterCtrl">
-		<h3>Amend Student</h3>
-		<pageview ng-model="deptDataList" program-id="aw01st">
-		  <screen program-id="aw01st"></screen>
-		</pageview>
-		<entry ng-model="entryAmendForm" program-id="ae01st" edit-mode="amend">
-		  <form ng-submit="SubmitData()" class="uk-form uk-form-horizontal">
-			<fieldset data-uk-margin>
-			  <div class="uk-form-row">
-				<label for="inputStudentID2" class="uk-form-label">Student ID</label>
-				<div class="uk-form-controls">
-				  <input type="text" id="inputStudentID2" ng-model="entryCtrl.ngModel.StudentID" readonly>
-				</div>
-			  </div>
-			  <div class="uk-form-row">
-				<label for="inputStuName2" class="uk-form-label">Student Name</label>
-				<div class="uk-form-controls">
-				  <input type="text" id="inputStuName2" ng-model="entryCtrl.ngModel.StuName">
-				</div>
-			  </div>
-			  <div class="uk-form-row">
-				<label for="inputDOB2" class="uk-form-label">Date of Birth</label>
-				<div class="uk-form-controls">
-				  <input type="date" id="inputDOB2" ng-model="entryCtrl.ngModel.DOB">
-				</div>
-			  </div>
-			  <div class="uk-form-row">
-				<button type="submit" class="uk-button">Update</button>
-			  </div>
-			</fieldset>
-		  </form>
-		</entry>
-	</div>
-	<div class="uk-block" ng-controller="deleteMasterController as createMasterCtrl">
-		<h3>Delete Student</h3>
-		<pageview ng-model="deptDataList" program-id="aw01st">
-		  <screen program-id="aw01st"></screen>
-		</pageview>
-		<entry ng-model="entryAmendForm" program-id="ae01st" edit-mode="delete">
-		  <form ng-submit="SubmitData()" class="uk-form uk-form-horizontal">
-			<fieldset data-uk-margin>
-			  <div class="uk-form-row">
-				<label for="inputStudentID3" class="uk-form-label">Student ID</label>
-				<div class="uk-form-controls">
-				  <input type="text" id="inputStudentID3" ng-model="entryCtrl.ngModel.StudentID" readonly>
-				</div>
-			  </div>
-			  <div class="uk-form-row">
-				<label for="inputStuName3" class="uk-form-label">Student Name</label>
-				<div class="uk-form-controls">
-				  <input type="text" id="inputStuName3" ng-model="entryCtrl.ngModel.StuName" readonly>
-				</div>
-			  </div>
-			  <div class="uk-form-row">
-				<label for="inputDOB3" class="uk-form-label">Date of Birth</label>
-				<div class="uk-form-controls">
-				  <input type="date" id="inputDOB3" ng-model="entryCtrl.ngModel.DOB" readonly>
-				</div>
-			  </div>
-			  <div class="uk-form-row">
-				<button type="submit" class="uk-button">Delete</button>
-			  </div>
-			</fieldset>
-		  </form>
-		</entry>
-	</div>
+	<ul class="uk-tab" data-uk-tab="{connect:'#crudTabContent'}">
+		<li><a href="">Create</a></li>
+		<li><a href="">View</a></li>
+		<li><a href="">Amend</a></li>
+		<li><a href="">Delete</a></li>
+	</ul>
+	<ul id="crudTabContent" class="uk-switcher uk-margin">
+		<li class="uk-active">
+			<div class="uk-block" ng-controller="createMasterController as createMasterCtrl">
+				<h3>Create Course</h3>
+				<entry ng-model="entryCreateForm" program-id="ae01st" edit-mode="create">
+				  <form ng-submit="SubmitData()" class="uk-form uk-form-horizontal">
+					<fieldset data-uk-margin>
+					  <div class="uk-form-row">
+						<label for="inputStudentID" class="uk-form-label">Student ID</label>
+						<div class="uk-form-controls">
+						  <input type="text" id="inputStudentID" ng-model="entryCtrl.ngModel.StudentID">
+						</div>
+					  </div>
+					  <div class="uk-form-row">
+						<label for="inputStuName" class="uk-form-label">Student Name</label>
+						<div class="uk-form-controls">
+						  <input type="text" id="inputStuName" ng-model="entryCtrl.ngModel.StuName">
+						</div>
+					  </div>
+					  <div class="uk-form-row">
+						<label for="inputDOB" class="uk-form-label">Date of Birth</label>
+						<div class="uk-form-controls">
+						  <input type="date" id="inputDOB" ng-model="entryCtrl.ngModel.DOB">
+						</div>
+					  </div>
+					  <div class="uk-form-row">
+						<button type="submit" class="uk-button">Create</button>
+					  </div>
+					</fieldset>
+				  </form>
+				</entry>
+			</div>
+		</li>
+		<li>
+			<div class="uk-block" ng-controller="viewMasterController as createMasterCtrl">
+				<h3>View Student</h3>
+				<pageview ng-model="deptDataList" program-id="aw01st">
+				  <screen program-id="aw01st"></screen>
+				</pageview>
+				<entry ng-model="entryViewForm" program-id="ae01st" edit-mode="view">
+				  <form ng-submit="SubmitData()" class="uk-form uk-form-horizontal">
+					<fieldset data-uk-margin>
+					  <div class="uk-form-row">
+						<label for="inputStudentID4" class="uk-form-label">Student ID</label>
+						<div class="uk-form-controls">
+						  <input type="text" id="inputStudentID4" ng-model="entryCtrl.ngModel.StudentID" readonly>
+						</div>
+					  </div>
+					  <div class="uk-form-row">
+						<label for="inputStuName4" class="uk-form-label">Student Name</label>
+						<div class="uk-form-controls">
+						  <input type="text" id="inputStuName4" ng-model="entryCtrl.ngModel.StuName" readonly>
+						</div>
+					  </div>
+					  <div class="uk-form-row">
+						<label for="inputDOB4" class="uk-form-label">Date of Birth</label>
+						<div class="uk-form-controls">
+						  <input type="date" id="inputDOB4" ng-model="entryCtrl.ngModel.DOB" readonly>
+						</div>
+					  </div>
+					</fieldset>
+				  </form>
+				</entry>
+			</div>
+		</li>
+		<li>
+			<div class="uk-block" ng-controller="amendMasterController as createMasterCtrl">
+				<h3>Amend Student</h3>
+				<pageview ng-model="deptDataList" program-id="aw01st">
+				  <screen program-id="aw01st"></screen>
+				</pageview>
+				<entry ng-model="entryAmendForm" program-id="ae01st" edit-mode="amend">
+				  <form ng-submit="SubmitData()" class="uk-form uk-form-horizontal">
+					<fieldset data-uk-margin>
+					  <div class="uk-form-row">
+						<label for="inputStudentID2" class="uk-form-label">Student ID</label>
+						<div class="uk-form-controls">
+						  <input type="text" id="inputStudentID2" ng-model="entryCtrl.ngModel.StudentID" readonly>
+						</div>
+					  </div>
+					  <div class="uk-form-row">
+						<label for="inputStuName2" class="uk-form-label">Student Name</label>
+						<div class="uk-form-controls">
+						  <input type="text" id="inputStuName2" ng-model="entryCtrl.ngModel.StuName">
+						</div>
+					  </div>
+					  <div class="uk-form-row">
+						<label for="inputDOB2" class="uk-form-label">Date of Birth</label>
+						<div class="uk-form-controls">
+						  <input type="date" id="inputDOB2" ng-model="entryCtrl.ngModel.DOB">
+						</div>
+					  </div>
+					  <div class="uk-form-row">
+						<button type="submit" class="uk-button">Update</button>
+					  </div>
+					</fieldset>
+				  </form>
+				</entry>
+			</div>
+		</li>
+		<li>
+			<div class="uk-block" ng-controller="deleteMasterController as createMasterCtrl">
+				<h3>Delete Student</h3>
+				<pageview ng-model="deptDataList" program-id="aw01st">
+				  <screen program-id="aw01st"></screen>
+				</pageview>
+				<entry ng-model="entryAmendForm" program-id="ae01st" edit-mode="delete">
+				  <form ng-submit="SubmitData()" class="uk-form uk-form-horizontal">
+					<fieldset data-uk-margin>
+					  <div class="uk-form-row">
+						<label for="inputStudentID3" class="uk-form-label">Student ID</label>
+						<div class="uk-form-controls">
+						  <input type="text" id="inputStudentID3" ng-model="entryCtrl.ngModel.StudentID" readonly>
+						</div>
+					  </div>
+					  <div class="uk-form-row">
+						<label for="inputStuName3" class="uk-form-label">Student Name</label>
+						<div class="uk-form-controls">
+						  <input type="text" id="inputStuName3" ng-model="entryCtrl.ngModel.StuName" readonly>
+						</div>
+					  </div>
+					  <div class="uk-form-row">
+						<label for="inputDOB3" class="uk-form-label">Date of Birth</label>
+						<div class="uk-form-controls">
+						  <input type="date" id="inputDOB3" ng-model="entryCtrl.ngModel.DOB" readonly>
+						</div>
+					  </div>
+					  <div class="uk-form-row">
+						<button type="submit" class="uk-button">Delete</button>
+					  </div>
+					</fieldset>
+				  </form>
+				</entry>
+			</div>
+		</li>
+	</ul>
 
 <!-- InstanceEndEditable -->
 </div>

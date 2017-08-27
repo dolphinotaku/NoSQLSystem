@@ -1,5 +1,45 @@
 <?php
 
+/* MongoDB query
+db.Enrolled.aggregate([
+    {
+        $lookup: {
+               from: "Students",
+               localField: "StudentID",
+               foreignField: "StudentID",
+               as: "student_docs"
+             }
+    },
+    {$unwind: "$student_docs"},
+    {
+        $lookup: {
+               from: "Offer",
+               localField: "CourseID",
+               foreignField: "CourseID",
+               as: "offer_docs"
+             }
+    },
+    {$unwind: "$offer_docs"},
+    {
+        $lookup: {
+               from: "Courses",
+               localField: "CourseID",
+               foreignField: "CourseID",
+               as: "courses_docs"
+             }
+    },
+    {$unwind: "$courses_docs"},
+    {
+        $match: {
+           "offer_docs.DeptID": "CS",
+           "offer_docs.Year": 2016,
+           "student_docs.StuName": "Chan Tai Man",
+           "Year": 2016
+         }
+    }
+])
+*/
+
 function ProcessData($requestData){
     $responseArray = Core::CreateResponseArray();
     $processMessageList = [];
@@ -48,7 +88,7 @@ function ProcessData($requestData){
         [
           '$lookup' =>
           [
-            'from' => "Course",
+            'from' => "Offer",
             'localField' => "CourseID",
             'foreignField' => "CourseID",
             'as' => "offer_docs",
@@ -58,7 +98,7 @@ function ProcessData($requestData){
         [
           '$lookup' =>
           [
-            'from' => "Course",
+            'from' => "Courses",
             'localField' => "CourseID",
             'foreignField' => "CourseID",
             'as' => "courses_docs",
@@ -66,10 +106,13 @@ function ProcessData($requestData){
         ],
         ['$unwind' => '$courses_docs'],
         [
-          '$match'=>[
+          '$match'=>
+          [
             "offer_docs.DeptID" => "CS",
-            "Year" => 2016,
-            "student_docs.StuName" => "Chan Tai Man"         ]
+            "offer_docs.Year" => 2016,
+            "student_docs.StuName" => "Chan Tai Man",
+            "Year" => 2016
+          ]
         ]
     ];
 
@@ -78,11 +121,11 @@ function ProcessData($requestData){
     // print_r($enrollResponseArray);
 
     // if offer records found
-    // if(!$enrollResponseArray['affected_rows'] > 0){
-    //     array_push($processMessageList, "No records match.");
-    //     $responseArray['processed_message'] = $processMessageList;
-    //     return $responseArray;
-    // }
+     if(!$enrollResponseArray['affected_rows'] > 0){
+         array_push($processMessageList, "No records match.");
+         $responseArray['processed_message'] = $processMessageList;
+         return $responseArray;
+     }
     //
     // $courseRecordsList = array();
     // foreach ($enrollResponseArray['data'] as $index => $dataRow) {
@@ -93,13 +136,15 @@ function ProcessData($requestData){
     //     }
     //     $courseRecordsList = array_merge($courseRecordsList, $courseResponseArray['data']);
     // }
-
+    
+    $responseArray['affected_rows'] = $enrollResponseArray['affected_rows'];
+    $responseArray['num_rows'] = $enrollResponseArray['num_rows'];
     $responseArray['data'] = $enrollResponseArray['data'];
     $responseArray['queryResultDataList'] = $enrollResponseArray['data'];
     // $responseArray['mostCourseEnrollResultDataList'] = $enrollResponseArray;
 //
-//    $responseArray['processed_message'] = $processMessageList;
-//    $responseArray['access_status'] = Core::$access_status['OK'];
+    $responseArray['processed_message'] = $processMessageList;
+    $responseArray['access_status'] = Core::$access_status['OK'];
 
     return $responseArray;
 }

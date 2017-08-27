@@ -95,7 +95,7 @@ app.controller('inquiryController', ['$scope', function ($scope, $rootScope) {
 //			$scope.processModel.queryResult = responseObj.data.ActionResult.data;
 //        }
 		$scope.processModel.queryResult = responseObj.data.ActionResult.data;
-		$scope.processModel.enrolledResult = responseObj.data.ActionResult.mostCourseEnrollResultDataList.data;
+//		$scope.processModel.enrolledResult = responseObj.data.ActionResult.mostCourseEnrollResultDataList.data;
     }
 
 	$scope.FindEnrolledCount = function(courseID){
@@ -124,6 +124,17 @@ app.controller('inquiryController', ['$scope', function ($scope, $rootScope) {
 	<div class="uk-navbar-flip uk-hidden-small">
 		<ul class="uk-navbar-nav">
 			<li><a href="index.html">Home <span class="fa fa-globe fa-lg"></span></a></li>
+			<li class="uk-parent" data-uk-dropdown><a href="#">Inquiry <span class="fa fa-search fa-lg"></span></a>
+				<div class="uk-dropdown">
+					<ul class="uk-nav uk-nav-navbar">
+						<li><a href="find_a.html">Query a</a></li>
+						<li><a href="find_b.html">Query b</a></li>
+						<li><a href="find_c.html">Query c</a></li>
+						<li><a href="find_d.html">Query d</a></li>
+						<li><a href="find_e.html">Query e</a></li>
+					</ul>
+				</div>
+			</li>
 			<li><a href="department.html">Department <span class="fa fa-sitemap fa-lg"></span></a></li>
 			<li><a href="courses.html">Courses <span class="fa fa-users fa-lg"></span></a></li>
 			<li><a href="offer.html">Offer <span class="fa fa-envelope-o fa-lg"></span></a></li>
@@ -143,6 +154,8 @@ app.controller('inquiryController', ['$scope', function ($scope, $rootScope) {
 			<!-- InstanceBeginEditable name="offCanvasNav" -->
 			<ul class="uk-nav uk-nav-offcanvas">
 				<li><a href="index.html">Home <span class="fa fa-globe fa-lg"></span></a></li>
+				<li><a href="index.html">Inquiry <span class="fa fa-search fa-lg"></span></a>
+				</li>
 				<li><a href="department.html">Department <span class="fa fa-sitemap fa-lg"></span></a></li>
 				<li><a href="courses.html">Courses <span class="fa fa-users fa-lg"></span></a></li>
 				<li><a href="offer.html">Offer <span class="fa fa-envelope-o fa-lg"></span></a></li>
@@ -165,7 +178,7 @@ app.controller('inquiryController', ['$scope', function ($scope, $rootScope) {
 <!-- site location start -->
 <!-- InstanceBeginEditable name="breadcrumb" -->
 <ul class="uk-breadcrumb">
-    <li>Entry</li>
+    <li>Query</li>
     <li class="uk-active"><a href="find_d.html">Query Function E</a></li>
 </ul>
 <!-- InstanceEndEditable -->
@@ -210,8 +223,16 @@ app.controller('inquiryController', ['$scope', function ($scope, $rootScope) {
 					<caption>Query Result</caption>
 					<thead>
 						<tr>
-							<th>Enrolled Students</th>
+							<th colspan="2">Student Information:<br>
+                                ID: {{processModel.queryResult[0]["student_docs"]["StudentID"]}}<br>
+                                Name: {{processModel.queryResult[0].student_docs.StuName}}<br>
+                                Date of Birth: {{processModel.queryResult[0].student_docs.DOB}}</th>
+						</tr>
+						<tr>
+							<th>Offered Department ID</th>
 							<th>Course ID</th>
+							<th>Title</th>
+							<th>Level</th>
 						</tr>
 					</thead>
 					<tfoot>
@@ -221,8 +242,10 @@ app.controller('inquiryController', ['$scope', function ($scope, $rootScope) {
 					</tfoot>
 					<tbody>
 						<tr ng-repeat="curRcd in processModel.queryResult track by $index">
-							<td>{{curRcd.count}}</td>
-							<td>{{curRcd._id.CourseID}}</td>
+							<td>{{curRcd.offer_docs.DeptID}}</td>
+							<td>{{curRcd.offer_docs.CourseID}}</td>
+							<td>{{curRcd.courses_docs.Title}}</td>
+							<td>{{curRcd.courses_docs.Level}}</td>
 						</tr>
 					</tbody>
 				</table>
